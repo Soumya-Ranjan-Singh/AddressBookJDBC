@@ -1,0 +1,3 @@
+ContactPerson{firstName='Soumya', lastName='Singh', address='Jobra', city='Cuttack', state='Odisha', zip='753007', phoneNumber='8908641811', email='soumyars675@gmail.com'}
+ContactPerson{firstName='Sambit', lastName='Behera', address='Chowdwar', city='Cuttack', state='Odisha', zip='754021', phoneNumber='7008565646', email='sbehera@gmail.com'}
+ContactPerson{firstName='Nigam', lastName='Jena', address='Nakhara', city='Bbsr', state='Odisha', zip='724001', phoneNumber='9937585846', email='njena50@gmail.com'}
