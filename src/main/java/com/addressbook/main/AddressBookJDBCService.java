@@ -1,13 +1,8 @@
-package com.addressbook.test;
-
-import com.addressbook.main.ContactPerson;
+package com.addressbook.main;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AddressBookJDBCService {
 
@@ -69,5 +64,44 @@ public class AddressBookJDBCService {
             e.printStackTrace();
         }
         return addressBookDataList;
+    }
+
+    public List<ContactPerson> getAddressBookData(String name) {
+        List<ContactPerson> addressBookDataList = null;
+        if (this.addressBookStatement == null)
+            this.prepareStatementForAllData();
+        try {
+            addressBookStatement.setString(1 , name);
+            ResultSet resultSet = addressBookStatement.executeQuery();
+            addressBookDataList = this.getAddressBookData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return addressBookDataList;
+    }
+
+    private void prepareStatementForAllData() {
+        try {
+            Connection connection = this.getConnection();
+            String sqlQuery = "select * from addressbook where FirstName = ?";
+            addressBookStatement = connection.prepareStatement(sqlQuery);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int updateAddressBookData(String name, String data, String columnName) {
+        return this.updateAddressBookDataUsingStatement(name , data , columnName);
+    }
+
+    private int updateAddressBookDataUsingStatement(String firstName, String data, String columnName) {
+        String sqlQuery = String.format("update addressbook set %s = '%s' where FirstName = '%s';",columnName,data,firstName);
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sqlQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

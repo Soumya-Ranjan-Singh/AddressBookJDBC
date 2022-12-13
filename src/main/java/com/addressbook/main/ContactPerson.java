@@ -2,6 +2,9 @@
 
 package com.addressbook.main;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 
 public class ContactPerson implements Serializable {
@@ -110,5 +113,20 @@ public class ContactPerson implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof ContactPerson)) return false;
+
+        ContactPerson that = (ContactPerson) o;
+
+        return new EqualsBuilder().append(getFirstName(), that.getFirstName()).append(getLastName(), that.getLastName()).append(getAddress(), that.getAddress()).append(getCity(), that.getCity()).append(getState(), that.getState()).append(getZip(), that.getZip()).append(getPhoneNumber(), that.getPhoneNumber()).append(getEmail(), that.getEmail()).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(getFirstName()).append(getLastName()).append(getAddress()).append(getCity()).append(getState()).append(getZip()).append(getPhoneNumber()).append(getEmail()).toHashCode();
+    }
 }
 
