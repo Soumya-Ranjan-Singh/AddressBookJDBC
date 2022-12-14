@@ -41,4 +41,10 @@ public class AddressBookTest {
         List<ContactPerson> readDataInGivenDateRange = addressBookFunction.readContactDataForDateRange(startDate, endDate);
         assertEquals(3, readDataInGivenDateRange.size());
     }
+
+    @Test
+    public void givenCityOrState_WhenRetrieved_ShouldReturnProperData() {
+        List<ContactPerson> readDataByCityOrState = addressBookFunction.getContactsByCityOrState("Cuttack", "Karnataka");
+        assertEquals(3, readDataByCityOrState.size());
+    }
 }

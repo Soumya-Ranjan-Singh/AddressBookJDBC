@@ -113,4 +113,9 @@ public class AddressBookJDBCService {
                 Date.valueOf(startDate),Date.valueOf(endDate));
         return this.getAddressBookDataUsingDB(sqlQuery);
     }
+
+    public List<ContactPerson> getContactsByCityOrState(String city, String state) {
+        String sqlQuery = String.format("select * from addressbook where City = '%s' or State = '%s';",city,state);
+        return this.getAddressBookDataUsingDB(sqlQuery);
+    }
 }
