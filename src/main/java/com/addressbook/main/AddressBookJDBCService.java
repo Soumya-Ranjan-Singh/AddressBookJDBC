@@ -1,8 +1,11 @@
 package com.addressbook.main;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.addressbook.main.AddressBookException.ExceptionType.UPDATE_FAIL;
 
 public class AddressBookJDBCService {
 
@@ -90,11 +93,11 @@ public class AddressBookJDBCService {
         }
     }
 
-    public int updateAddressBookData(String name, String data, String columnName) {
+    public int updateAddressBookData(String name, String data, String columnName) throws AddressBookException {
         return this.updateAddressBookDataUsingStatement(name , data , columnName);
     }
 
-    private int updateAddressBookDataUsingStatement(String firstName, String data, String columnName) {
+    private int updateAddressBookDataUsingStatement(String firstName, String data, String columnName) throws  AddressBookException{
         String sqlQuery = String.format("update addressbook set %s = '%s' where FirstName = '%s';",columnName,data,firstName);
         try (Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
@@ -103,5 +106,11 @@ public class AddressBookJDBCService {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public List<ContactPerson> getContactDataForDateRange(LocalDate startDate, LocalDate endDate) {
+        String sqlQuery = String.format("select * from addressbook where Date_added between '%s' and '%s';",
+                Date.valueOf(startDate),Date.valueOf(endDate));
+        return this.getAddressBookDataUsingDB(sqlQuery);
     }
 }

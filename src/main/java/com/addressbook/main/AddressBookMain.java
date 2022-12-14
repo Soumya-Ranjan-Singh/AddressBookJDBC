@@ -1,5 +1,6 @@
 package com.addressbook.main;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AddressBookMain {
@@ -37,5 +38,9 @@ public class AddressBookMain {
                 .findFirst()
                 .orElse(null);
         return contactData;
+    }
+
+    public List<ContactPerson> readContactDataForDateRange(LocalDate startDate, LocalDate endDate) {
+        return addressBookDBService.getContactDataForDateRange(startDate,endDate);
     }
 }

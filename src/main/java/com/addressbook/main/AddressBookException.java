@@ -1,8 +1,9 @@
 package com.addressbook.main;
 
-public class AddressBookException extends Throwable {
-    public enum ExceptionType
-    {UPDATE_FAIL,INSERTION_FAIL}
+import java.sql.SQLException;
+
+public class AddressBookException extends SQLException {
+    public enum ExceptionType {UPDATE_FAIL,INSERTION_FAIL}
 
     public ExceptionType type;
 
