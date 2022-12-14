@@ -48,4 +48,10 @@ public class AddressBookMain {
         List<ContactPerson> contactPersonList = addressBookDBService.getContactsByCityOrState(city, state);
         return contactPersonList;
     }
+
+    public void addContactToDatabase(String firstName, String lastName, String address, String city, String state, String zip,
+                                     String phoneNo, String email, String name, String type, LocalDate date) throws AddressBookException{
+        contacts.add(addressBookDBService.addContactToAddressBook(firstName,lastName,address,city,state,zip,
+                                                                        phoneNo,email,name,type,date));
+    }
 }

@@ -47,4 +47,12 @@ public class AddressBookTest {
         List<ContactPerson> readDataByCityOrState = addressBookFunction.getContactsByCityOrState("Cuttack", "Karnataka");
         assertEquals(3, readDataByCityOrState.size());
     }
+
+    @Test
+    public void givenNewContact_WhenAdded_ShouldSyncWithDB() throws AddressBookException {
+        addressBookFunction.addContactToDatabase("Nigam", "Jena", "Nakhara", "BBSR", "Odisha",
+                "742005", "9987555666", "nigamj@gmail.com", "SimContact", "Friends", LocalDate.now());
+        boolean result = addressBookFunction.checkAddressBookInSyncWithDB("Nigam");
+        assertTrue(result);
+    }
 }
